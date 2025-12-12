@@ -1,0 +1,14 @@
+###
+POST  http://localhost:3000/api/v1/transactions
+Content-Type: application/json
+
+{
+    "type" : "income",
+    "amount" : 500000,
+    "description": "BBM",
+    "idCategory" : "9f9fa5ad-d6fe-11f0-8a14-84ba593b88a8",
+    "idBank": "e2042571-d665-11f0-a329-84ba593b88a8"
+}
+
+###
+GET http://localhost:3000/api/v1/transactions/all

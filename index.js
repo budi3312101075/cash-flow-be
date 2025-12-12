@@ -6,7 +6,6 @@ import cluster from "node:cluster";
 import { availableParallelism } from "node:os";
 import cookieParser from "cookie-parser";
 import Routes from "./routes/index.js";
-// import { fileDir } from "./utils/tools.cjs";
 
 const totalCPU = availableParallelism();
 
