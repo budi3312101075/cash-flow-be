@@ -27,7 +27,7 @@ export const addTransactions = async (req, res) => {
       `INSERT INTO transactions
         (id, type, amount, date, description, id_category, id_bank) VALUES 
         (?, ?, ?, ?, ?, ?, ?)`,
-      [uuid(), type, amount, dateValue(), description, idCategory, idBank]
+      [uuid(), type, amount, dateValue(), description, idCategory, idBank],
     );
 
     return res
@@ -56,6 +56,9 @@ export const getTransactions = async (req, res) => {
     const endDateStr = endDate.toISOString().split("T")[0];
 
     let transactions;
+
+    const bankList = await query(`SELECT id, name FROM bank`);
+
     if (idBank && idBank !== "all") {
       transactions = await query(
         `SELECT t.*, c.name as category, c.icons as icon, b.name as bank_name 
@@ -66,7 +69,7 @@ export const getTransactions = async (req, res) => {
          AND t.date >= ? 
          AND t.date <= ?
          ORDER BY t.date DESC`,
-        [idBank, startDateStr, endDateStr]
+        [idBank, startDateStr, endDateStr],
       );
     } else {
       transactions = await query(
@@ -77,7 +80,7 @@ export const getTransactions = async (req, res) => {
          WHERE t.date >= ? 
          AND t.date <= ?
          ORDER BY t.date DESC`,
-        [startDateStr, endDateStr]
+        [startDateStr, endDateStr],
       );
     }
 
@@ -127,7 +130,7 @@ export const getTransactions = async (req, res) => {
         category,
         amount: parseFloat(data.amount.toFixed(2)),
         icon: data.icon,
-      })
+      }),
     );
 
     return res.status(200).json({
@@ -138,6 +141,7 @@ export const getTransactions = async (req, res) => {
           startDate: startDateStr,
           endDate: endDateStr,
         },
+        bank: bankList,
         summary: {
           totalBalance: parseFloat(bankBalance.toFixed(2)),
           totalIncome: parseFloat(totalIncome.toFixed(2)),
