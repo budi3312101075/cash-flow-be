@@ -59,6 +59,8 @@ export const getTransactions = async (req, res) => {
 
     const bankList = await query(`SELECT id, name FROM bank`);
 
+    const categoryList = await query(`SELECT id, name FROM category`);
+
     if (idBank && idBank !== "all") {
       transactions = await query(
         `SELECT t.*, c.name as category, c.icons as icon, b.name as bank_name 
@@ -142,6 +144,7 @@ export const getTransactions = async (req, res) => {
           endDate: endDateStr,
         },
         bank: bankList,
+        category: categoryList,
         summary: {
           totalBalance: parseFloat(bankBalance.toFixed(2)),
           totalIncome: parseFloat(totalIncome.toFixed(2)),

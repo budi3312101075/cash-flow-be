@@ -11,4 +11,7 @@ Content-Type: application/json
 }
 
 ###
-GET http://localhost:3000/api/v1/transactions/all
+GET http://localhost:3000/api/v1/transactions/e2042571-d665-11f0-a329-84ba593b88a8
+
+###
+GET http://localhost:3000/api/v1/category
