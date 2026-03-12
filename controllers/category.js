@@ -9,7 +9,7 @@ export const category = async (req, res) => {
       message: "Successfully Add Transaction! 🎉",
       data: data,
     });
-  } catch {
+  } catch (err) {
     return res.status(500).json({
       status: 500,
       message: "Internal server error",
